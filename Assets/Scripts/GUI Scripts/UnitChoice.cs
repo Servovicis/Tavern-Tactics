@@ -91,6 +91,8 @@ public class UnitChoice : MonoBehaviour
 				UILabel buttonLabel = thisButton.myLabel;
 				NGUITools.SetActive(thisButton.gameObject, true);
 				buttonLabel.text = ThisUnit.MyName;
+				thisButton.Hover = ThisUnit.preloadStats;
+				thisButton.unHover = ThisUnit.unloadUnitStatInfo;
 				//if (GUI.Button (new Rect (GUIGroupSize.width*(buttoncount*.20f) + 25f, 0, GUIButtonWidth, GuiHeight), ThisUnit.MyName)) 
 				//{
 				//	SpawnedUnit = ThisUnitObject;

@@ -97,10 +97,15 @@ public class KingKind : Unit {
 		OnDeath = DeathAction;
 		IsKing = true;
 		OnActionSelect += InsertGUI;
+		OnActionSelect += GUIButtons;
 		OnActionDeselectExtra = RemoveGUI;
 		OnAttack = UnitResolveAttack;
 		//OnAttack = AOEAttack;
 		base.Awake ();
+	}
+
+	protected override int declareMyColumn () {
+		return 6;
 	}
 
 	public override void UnitTypeSet (){

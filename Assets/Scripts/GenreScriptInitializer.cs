@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 public static class GenreScriptInitializer{
-	
+
 	public static char TextSeparator = ',';
-	
+
 	public static void LoadItemsIntoGenre (PrefabGenreScript genreScript) {
 		string[] UnitScripts = Resources.Load <TextAsset> (genreScript.genreName).text.Split (new char[]{TextSeparator},System.StringSplitOptions.RemoveEmptyEntries);
 		foreach (string UnitName in UnitScripts) {
@@ -19,7 +19,7 @@ public static class GenreScriptInitializer{
 		}
 		AlphabetizeItems (genreScript);
 	}
-	
+
 	public static void AlphabetizeItems (PrefabGenreScript genreScript) {
 		genreScript.UnitTypes.Sort ();
 		int counter = 0;

@@ -20,7 +20,6 @@ public class CursorSelection : MonoBehaviour {
 			_selectedTile = value;
 			if (value != null){
 				_selectedTile.TileSelectionType = Tile.OverlayType.TempSelected;
-				Debug.Log("Test Statement Select Tile");
 			}
 		}
 	}
@@ -43,9 +42,8 @@ public class CursorSelection : MonoBehaviour {
 		Instance = this;
 		GameManagerScript = gameObject.GetComponent<GameManager>();
 	}
-
+	
 	public void InsertMouseFunction(){
-		Debug.Log("InsertMouseFunction");
 		RayCast = Camera.main.ScreenPointToRay (Input.mousePosition);
 		if (Physics.Raycast (RayCast, out HitPoint, Mathf.Infinity, TileLayer)) {
 			
@@ -92,9 +90,9 @@ public class CursorSelection : MonoBehaviour {
 						}
 						else {
 							foreach (GUILeftPaneButton thisButton in GameManager.Instance.LeftPaneButtons) {
-								thisButton.onClick = null;
-								thisButton.myLabel.text = "";
+								thisButton.UnloadButtons();
 								NGUITools.SetActive(thisButton.gameObject, false);
+								UnitPortraitController.Instance.unloadUnit ();
 							}
 						}
 					}
@@ -120,9 +118,9 @@ public class CursorSelection : MonoBehaviour {
 						}
 						else {
 							foreach (GUILeftPaneButton thisButton in GameManager.Instance.LeftPaneButtons) {
-								thisButton.onClick = null;
-								thisButton.myLabel.text = "";
+								thisButton.UnloadButtons();
 								NGUITools.SetActive(thisButton.gameObject, false);
+								UnitPortraitController.Instance.unloadUnit();
 							}
 						}
 						UnitChoice.Instance.SpawnButton();

@@ -99,10 +99,13 @@ public abstract class HeavyKind : MobileUnit {
 		unitGUI = UnitGUI;
 		UnitType = GridCS.UnitType.Heavy;
 		IsKing = false;
-		OnActionSelect += InsertGUI;
 		OnActionDeselectExtra = RemoveGUI;
 		OnAttack = UnitResolveAttack;
 		OnDeath += heavyDeath;
+	}
+
+	protected override int declareMyColumn () {
+		return 4;
 	}
 
 	public override void UnitTypeSet (){

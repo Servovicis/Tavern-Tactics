@@ -52,19 +52,11 @@ public class Attack : Action{
 	
 	public override void Resolve (){
 		if (TargetUnit != null) {
-						if (!TargetUnit.IsDed) {
-
-								if (TargetUnit.OnHit != null)
-										TargetUnit.OnHit (TargetUnit.Position, InitiatorUnit.Position, TargetUnit.layer, InitiatorUnit.layer);
-								InitiatorUnit.OnAttack (TargetUnit.Position, InitiatorUnit.Position, TargetUnit.layer, InitiatorUnit.layer);
-								if (TargetUnit == null || TargetUnit.IsDed)
-										InitiatorUnit.experience++;
-						} else {
-								Debug.Log ("The Unit is already Dead!");
-						}
-		} 
-		else {
-			Debug.Log ("There is no Unit to attack!");
+			if (TargetUnit.OnHit != null)
+				TargetUnit.OnHit (TargetUnit.Position, InitiatorUnit.Position,TargetUnit.layer,InitiatorUnit.layer);
+			InitiatorUnit.OnAttack(TargetUnit.Position, InitiatorUnit.Position,TargetUnit.layer,InitiatorUnit.layer);
+			if (TargetUnit == null|| TargetUnit.IsDed)
+				InitiatorUnit.experience++;
 		}
 		TurnActionOrderHandler.Instance.ResolveActions ();
 	}

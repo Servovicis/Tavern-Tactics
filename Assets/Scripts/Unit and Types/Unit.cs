@@ -123,6 +123,7 @@ public abstract class Unit : MonoBehaviour {
 	public GameObject myPortrait;
 	//The Unit's genre as a string
 	public string myGenreName;
+
 	//The amount of units that this unit has killed
 	int _experience = 0;
 	public int experience{
@@ -326,15 +327,7 @@ public abstract class Unit : MonoBehaviour {
 			RemoveAbilityRange ();
 		if (OnActionDeselectExtra != null)
 			OnActionDeselectExtra ();
-		UnitInfo_Attack.Instance.Label.text = "";
-		UnitInfo_Attack.Instance.Sprite.enabled = false;
-		UnitInfo_Defense.Instance.Label.text = "";
-		UnitInfo_Defense.Instance.Sprite.enabled = false;
-		UnitInfo_Health.Instance.Label.text = "";
-		UnitInfo_Health.Instance.Sprite.enabled = false;
-		UnitInfo_Movement.Instance.Label.text = "";
-		UnitInfo_Movement.Instance.Sprite.enabled = false;
-		UnitInfo_Range.Instance.Label.text = "";
+		unloadUnitStatInfo ();
 	}
 	
 	// Use this for initialization
@@ -637,7 +630,15 @@ public abstract class Unit : MonoBehaviour {
 		level++;
 	}
 
-	public virtual void InsertGUI () {
+	public virtual void GUIButtons () {
+	}
+
+	public virtual void removeButtons () {
+
+	}
+	
+	public virtual void loadUnitStatInfo () {
+		UnitPortraitController.Instance.LoadUnit (myPortrait);
 		UnitInfo_Attack.Instance.Label.text = BaseDamage.ToString ();
 		UnitInfo_Attack.Instance.Sprite.enabled = true;
 		UnitInfo_Defense.Instance.Label.text = DamageReduction.ToString ();
@@ -647,6 +648,42 @@ public abstract class Unit : MonoBehaviour {
 		UnitInfo_Movement.Instance.Label.text = Movement.ToString ();
 		UnitInfo_Movement.Instance.Sprite.enabled = true;
 		UnitInfo_Range.Instance.Label.text = MinRange.ToString () + " - " + MaxRange.ToString ();
+	}
+
+	public virtual void unloadUnitStatInfo () {
+		UnitPortraitController.Instance.unloadUnit ();
+		UnitInfo_Attack.Instance.Label.text = "";
+		UnitInfo_Attack.Instance.Sprite.enabled = false;
+		UnitInfo_Defense.Instance.Label.text = "";
+		UnitInfo_Defense.Instance.Sprite.enabled = false;
+		UnitInfo_Health.Instance.Label.text = "";
+		UnitInfo_Health.Instance.Sprite.enabled = false;
+		UnitInfo_Movement.Instance.Label.text = "";
+		UnitInfo_Movement.Instance.Sprite.enabled = false;
+		UnitInfo_Range.Instance.Label.text = "";
+	}
+
+	public virtual void preloadStats () {
+		UnitPortraitController.Instance.LoadUnit (myPortrait);
+		TextAsset csv = Resources.Load("CharacterBalance") as TextAsset;
+		string [,] charStats = LoadCSV.SplitCsvGrid(csv.text);
+		UnitInfo_Attack.Instance.Label.text = charStats [23, declareMyColumn()];
+		UnitInfo_Attack.Instance.Sprite.enabled = true;
+		UnitInfo_Defense.Instance.Label.text = DamageReduction.ToString ();
+		UnitInfo_Defense.Instance.Sprite.enabled = true;
+		UnitInfo_Health.Instance.Label.text = charStats[4,declareMyColumn()];
+		UnitInfo_Health.Instance.Sprite.enabled = true;
+		UnitInfo_Movement.Instance.Label.text = charStats[1, declareMyColumn ()];
+		UnitInfo_Movement.Instance.Sprite.enabled = true;
+		UnitInfo_Range.Instance.Label.text = charStats [11, declareMyColumn ()] + " - " + charStats [11, declareMyColumn ()];
+	}
+
+	protected virtual int declareMyColumn () {
+		return 0;
+	}
+
+	public virtual void InsertGUI () {
+		loadUnitStatInfo ();
 	}
 
 	#endregion

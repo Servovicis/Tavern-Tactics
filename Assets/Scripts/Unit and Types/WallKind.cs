@@ -46,7 +46,6 @@ public class WallKind : Unit {
 	}
 	
 	public virtual void WallDeath() {
-		//UnitOwner.WallIsDestroyed = true;
 		GridCS.Instance.grid [(int) Position.x, (int) Position.y, layer].isTrapped = false;
 	}
 	
@@ -61,7 +60,6 @@ public class WallKind : Unit {
 	}
 	
 	void DeathAction (){
-		//UnitOwner.WallIsDestroyed = true;
-		GridCS.Instance.grid [(int) Position.x, (int) Position.y, layer].isTrapped = false;
+		UnitOwner.WallIsDestroyed = true;
 	}
 }

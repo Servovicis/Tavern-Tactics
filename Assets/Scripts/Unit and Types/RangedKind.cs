@@ -100,6 +100,10 @@ public abstract class RangedKind : MobileUnit {
 		//OnAttack = AOEAttack;
 		base.Awake ();
 	}
+
+	protected override int declareMyColumn () {
+		return 3;
+	}
 	
 	public override void UnitTypeSet (){
 		UnitTypeName = UnitTypeNameOverride;
